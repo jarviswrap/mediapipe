@@ -77,7 +77,38 @@ Execution failed for task ':facedetection:processDebugMainManifest'.
     </manifest>
     ```
 
-## 4. 最终构建成功
+## 4. 构建目录冲突问题 (BUILD file vs build directory)
+
+**问题 3：**
+在解决上述配置问题后，构建过程中出现无法创建目录的错误。
+
+**错误日志：**
+```
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+java.lang.IllegalArgumentException: Could not create problems-report directory '/.../build/reports/problems'
+```
+
+**原理：**
+这是一个在 **macOS** 和 **Windows** 等不区分大小写的文件系统上常见的冲突问题。
+1.  **冲突源**：Bazel 构建系统在 `solutions` 目录下放置了一个名为 `BUILD` 的文件（用于定义 Bazel 构建规则）。
+2.  **Gradle 行为**：Gradle 默认的输出目录名为 `build/`。
+3.  **系统行为**：在不区分大小写的文件系统上，系统认为文件 `BUILD` 和目录 `build` 是同一个名称。当 Gradle 试图创建 `build` 目录时，发现已存在一个同名文件（即 Bazel 的 `BUILD` 文件），导致目录创建失败。
+
+**解决方案：**
+如果不再使用 Bazel 编译该目录下的 Android 项目，可以直接删除或重命名 `BUILD` 文件。
+
+```bash
+# 删除 Bazel 的 BUILD 文件以允许 Gradle 创建 build 目录
+rm BUILD
+# 然后执行清理和构建
+./gradlew clean assembleDebug
+```
+
+> **注意**：如果不希望删除 `BUILD` 文件，也可以在 `build.gradle` 中修改项目的构建输出目录（`buildDir`），例如将其改为 `gradle_build`。
+
+## 5. 最终构建成功
 
 **操作：**
 执行清理并构建命令：
