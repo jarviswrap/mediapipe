@@ -3,8 +3,8 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    namespace 'com.google.mediapipe.examples.facemesh'
+    compileSdkVersion 34
 
     defaultConfig {
         applicationId "com.google.mediapipe.apps.facemesh"
