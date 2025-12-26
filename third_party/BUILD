@@ -389,15 +389,13 @@ java_import(
     ],
 )
 
-cc_binary(
+cc_import(
     name = "libc++_shared",
-    srcs = ["libc++_shared.so"],
-    linkshared = 1,
-    linkstatic = 1,
+    shared_library = "libc++_shared.so",
 )
 
 cc_library(
     name = "libc++_shared_lib",
-    srcs = [":libc++_shared.so"],
+    deps = [":libc++_shared"],
     alwayslink = 1,
 )

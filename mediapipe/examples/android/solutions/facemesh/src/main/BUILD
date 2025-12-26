@@ -34,6 +34,7 @@ android_binary(
         "//mediapipe/java/com/google/mediapipe/solutioncore:video_input",
         "//mediapipe/java/com/google/mediapipe/solutions/facemesh",
         "//third_party:opencv",
+        "//third_party:libc++_shared_lib",
         "@maven//:androidx_activity_activity",
         "@maven//:androidx_appcompat_appcompat",
         "@maven//:androidx_concurrent_concurrent_futures",

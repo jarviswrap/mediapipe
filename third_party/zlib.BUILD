@@ -14,6 +14,7 @@ COPTS = select({
         "-Wno-incompatible-pointer-types-discards-qualifiers",
         "-Wno-parentheses",
         "-DIOAPI_NO_64",
+        "-Dfdopen=fdopen",
     ],
 })
 
